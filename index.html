@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- Origin source: https://github.com/NhanAZ/ClockTab -->
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="utf-8" />
@@ -8,37 +7,45 @@
 	<link rel="icon" type="image/x-icon" href="./clock.png">
 	<title>Clock Tab</title>
 	<style>
+		body {
+			background-color: #000;
+			margin: 0;
+			overflow: hidden;
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
 		#time-text {
-			font-family: "Times New Roman";
-			color: #ffffff;
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			font-size: 25em;
+			font-family: Verdana, Geneva, sans-serif;
+			font-weight: bold;
+			color: #fff;
+			font-size: 35vmin;
+			letter-spacing: -1px;
+			text-align: center;
+			max-width: 90vw;
 		}
 	</style>
 </head>
 
-<body onload="startTime()" bgcolor="#000000">
+<body>
 	<div id="time-text"></div>
 	<script>
-		function startTime() {
-			const today = new Date();
-			let h = today.getHours();
-			let m = today.getMinutes();
-			let s = today.getSeconds();
-			m = checkTime(m);
-			s = checkTime(s);
-			document.getElementById("time-text").innerHTML = h + ":" + m + ":" + s;
-			setTimeout(startTime, 1000);
+		const timeDisplay = document.getElementById("time-text");
+
+		function updateClock() {
+			const now = new Date();
+			const hours = now.getHours();
+			const minutes = now.getMinutes().toString().padStart(2, "0");
+			const seconds = now.getSeconds().toString().padStart(2, "0");
+
+			timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+			requestAnimationFrame(updateClock);
 		}
-		function checkTime(i) {
-			if (i < 10) {
-				i = "0" + i;
-			};
-			return i;
-		}
+
+		updateClock();
 	</script>
 </body>
 
